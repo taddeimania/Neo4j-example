@@ -1,4 +1,4 @@
-
+'use strict';
 
 const generateValidIPSegment = () => {
   return Math.floor(Math.random() * (Math.floor(255) - Math.ceil(1)) + Math.ceil(1));
