@@ -1,0 +1,13 @@
+version: '2'
+services:
+  api:
+    build: .
+    ports:
+     - "3000:3000"
+    volumes:
+     - .:/usr/src/app
+  neo4j:
+    ports:
+     - "7474:7474"
+     - "7687:7687"
+    image: "neo4j"
