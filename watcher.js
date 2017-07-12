@@ -1,6 +1,5 @@
 
 const Domain = require('./models/domain')
-const generateRandomDomain = require('./data/loadData').generateRandomDomain;
 
 const startBackgroundTask = () => {
   setInterval(() => {
