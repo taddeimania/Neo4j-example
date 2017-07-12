@@ -2,7 +2,8 @@
 const dataGenerators = require('../data/loadData');
 
 class Domain {
-  constructor() {
+  constructor(session) {
+    this._session = session;
     if (Math.random() > .5) {
       this.address = dataGenerators.generateRandomIPAddress();
     } else {
@@ -10,27 +11,28 @@ class Domain {
     }
   }
 
-  static create () {
-    return new Domain();
+  static create (session) {
+    return new Domain(session);
   }
 
-  static count () {
-    // Stub neo4j COUNT code here
-    // match (n:Domain)
-    // return count(n)
+  static count (session) {
+    return session.run(
+      'MATCH (n:Domain) RETURN count(n) as domainCount;'
+    );
   }
 
-  static randomNode (address) {
-    // Stub neo4j MATCH code here
-    // MATCH (u:Domain)
-    // WITH u, rand() AS number
-    // RETURN u
-    // ORDER BY number
-    // LIMIT 1
-
+  static randomNode (session) {
+    return session.run(
+      'MATCH (n:Domain) WITH n, rand() AS number RETURN n.address ORDER BY number LIMIT 1'
+    );
   }
 
   save() {
+    return this._session.run(
+      'CREATE (n:Domain {address: $address}) RETURN n',
+      {address: this.address}
+    );
+
     // Stub neo4j CREATE code here
     // CREATE (n:Domain {address: this.address})
   }
@@ -41,12 +43,16 @@ class Domain {
     // DELETE n;
   }
 
-  associate(otherDomain) {
+  associate(randomNode) {
+    const otherDomain = randomNode.records[0].get(0)
+    return this._session.run(
+     `MATCH (n:Domain) WHERE n.address = $myAddress
+      MATCH (o:Domain) WHERE o.address = $otherAddress
+      CREATE (n)-[:CONNECT]->(o)
+      RETURN n,o`,
+      {myAddress: this.address, otherAddress: otherDomain}
+    );
     // Stub neo4j relationship code here
-    // MATCH (n:Domain) WHERE n.address = this.address
-    // MATCH (o:Domain) WHERE o.address = otherDomain.address
-    // CREATE (n)-[:CONNECT]->(o)
-    // RETURN n,o
   }
 
 }

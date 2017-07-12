@@ -6,6 +6,7 @@ const routes = require('./routes');
 const startBackgroundTask = require("./watcher");
 const morgan = require('morgan');
 
+
 const app = express();
 app.use(morgan('combined'));
 const opts = {
@@ -13,14 +14,19 @@ const opts = {
   version: "0.0.1"
 };
 
+
 swagger.initialize(app, opts);
 
 app.use(routes);
 
 swagger.compile()
 
+
+
 app.listen(3000, () => {
   console.log("Started serving express app on port 3000");
   console.log("Starting background worker task");
-  startBackgroundTask();
+  setTimeout(function () {
+    startBackgroundTask();
+  }, 5000);
 });
