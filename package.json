@@ -4,13 +4,15 @@
   "description": "Real time neo4j dashboard",
   "main": "server.js",
   "scripts": {
+    "watcher": "node watcher.js",
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha tests"
   },
   "author": "Joel Taddei (taddeimania) jtaddei@gmail.com",
   "license": "ISC",
   "dependencies": {
     "express": "^4.15.3",
+    "morgan": "^1.8.2",
     "swagger-spec-express": "^2.0.3"
   },
   "devDependencies": {
