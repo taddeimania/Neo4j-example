@@ -12,5 +12,10 @@
        console.log("closing session");
        session.close();
      }
-   })
+   });
+
+   let boltSocket = new WebSocket("ws://localhost:8080");
+   boltSocket.onmessage = function(event) {
+     console.log(JSON.parse(event.data));
+   };
 })();
