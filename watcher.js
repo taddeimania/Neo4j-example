@@ -41,6 +41,5 @@ const createRandomDomains = async (session) => {
 }
 
 module.exports = {
-  startBackgroundTask: startBackgroundTask,
-  dataTrigger: dataTrigger
+  startBackgroundTask: startBackgroundTask
 };
