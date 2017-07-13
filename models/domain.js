@@ -43,7 +43,7 @@ class Domain {
     // Stub neo4j DELETE code here
     // MATCH (n:Domain) WHERE n.address = this.address
     // DELETE n;
-  }
+  };
 
   associate(randomNode) {
     const otherDomain = randomNode.records[0].get(0)
@@ -55,7 +55,15 @@ class Domain {
       {myAddress: this.address, otherAddress: otherDomain}
     );
     // Stub neo4j relationship code here
-  }
+  };
+
+  getAssociations() {
+    return this._session.run(
+     `MATCH (n:Domain {address: $myAddress})-[r]-()
+      RETURN n,r`,
+      {myAddress: this.address}
+    );
+  };
 
 }
 

@@ -33,6 +33,7 @@ const createRandomDomains = async (session) => {
     const randomNode = await Domain.randomNode(session);
     await domain.associate(randomNode)
   }
+  result.associations = await domain.getAssociations();
   // Stubbed out websocket communication. This gets fired whenever an object is created
   Object.keys(clientSockets).forEach(key => {
     clientSockets[key].send(JSON.stringify(result));
