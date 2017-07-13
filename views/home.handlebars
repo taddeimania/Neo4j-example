@@ -10,15 +10,17 @@
   <form class="" action="" method="post" id="searchForm">
     <div class="input-group">
       <input class="form-input" type="text" id="domainSearch" alt="Type domain or IP here to retrieve results." />
-      <input type="submit" class="btn btn-primary input-group-btn" value="Search"/>
+      <input type="submit" class="btn btn-primary input-group-btn" />
     </div>
   </form>
 </p>
-
 <div>Some Examples:
 {{#each samples}}
-  <span class="label label-primary pill">{{this}}</span>
+  <span class="label label-primary">{{this}} </span>
 {{/each}}
 </div>
 
-<script src="/static/js/main.js" charset="utf-8"></script>
+<script src="/static/js/neo4j-web.min.js" charset="utf-8"></script>
+<script src="/static/js/ui.js" charset="utf-8"></script>
+<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.12.0.js"></script>
+<script src="/static/js/boltAdapter.js" charset="utf-8"></script>

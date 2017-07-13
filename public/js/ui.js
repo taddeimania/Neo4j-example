@@ -1,10 +1,7 @@
 ;(function() {
-  console.log("Hello World");
-
   let searchForm = document.getElementById("searchForm");
   searchForm.addEventListener("submit", function(e) {
     e.preventDefault();
-    console.log("geez rick~");
   });
 
   let pillBoxes = document.querySelectorAll(".pill").forEach(function(box) {
