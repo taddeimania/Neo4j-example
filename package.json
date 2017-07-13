@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.15.3",
+    "express-handlebars": "^3.0.0",
     "morgan": "^1.8.2",
     "neo4j-driver": "^1.2.0",
     "swagger-spec-express": "^2.0.3"

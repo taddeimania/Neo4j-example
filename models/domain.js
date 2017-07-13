@@ -9,33 +9,35 @@ class Domain {
     } else {
       this.address = dataGenerators.generateRandomDomain();
     }
-  }
+  };
 
   static create (session) {
     return new Domain(session);
-  }
+  };
 
   static count (session) {
     return session.run(
       'MATCH (n:Domain) RETURN count(n) as domainCount;'
     );
-  }
+  };
 
-  static randomNode (session) {
+  static randomNode (session, count=1) {
     return session.run(
-      'MATCH (n:Domain) WITH n, rand() AS number RETURN n.address ORDER BY number LIMIT 1'
+      'MATCH (n:Domain) WITH n, rand() AS number RETURN n.address ORDER BY number LIMIT $count',
+      {count: count}
     );
-  }
+  };
+
+  static randomNodes (session, count) {
+    return this.randomNode(session, count);
+  };
 
   save() {
     return this._session.run(
       'CREATE (n:Domain {address: $address}) RETURN n',
       {address: this.address}
     );
-
-    // Stub neo4j CREATE code here
-    // CREATE (n:Domain {address: this.address})
-  }
+  };
 
   destroy() {
     // Stub neo4j DELETE code here
