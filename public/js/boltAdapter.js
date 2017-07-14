@@ -51,6 +51,16 @@ let findNode = (address) => {
 let establishWebSocket = () => {
   let boltSocket = new WebSocket("ws://localhost:8080");
   boltSocket.onmessage = function(event) {
-   console.log(JSON.parse(event.data));
+    // push new node and relationships into fullGraphData / call restart();
+   fullGraphData.nodes.push(JSON.parse(event.data));
+   const relData = JSON.parse(event.data).links.records;
+   if (relData[0] && relData[0]._fields){
+     relData.forEach(linkData => {
+       const link = serializeNodesAndRelationships(linkData);
+       console.log("PUSH PUSH!!");
+       fullGraphData.links.push(link)
+     });
+   }
+   restart();
   };
 };

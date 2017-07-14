@@ -59,8 +59,8 @@ class Domain {
 
   getAssociations() {
     return this._session.run(
-     `MATCH (n:Domain {address: $myAddress})-[r]-()
-      RETURN n,r`,
+     `MATCH (n:Domain {address: $myAddress})-[r]-(p)
+      RETURN n,p,r`,
       {myAddress: this.address}
     );
   };
