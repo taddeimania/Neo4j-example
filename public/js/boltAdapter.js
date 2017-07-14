@@ -7,21 +7,39 @@ let getAllNodes = () => {
    .run('MATCH (n:Domain) RETURN n')
    .subscribe({
      onNext: function(record) {
-       console.log(record);
+       fullGraphData.nodes.push({id: record.get(0).properties.address});
+     },
+     onCompleted: function() {
+       console.log("getting all relationships");
+       getAllNodeRelationships();
+     }
+   });
+}
+
+let getAllNodeRelationships = () => {
+  session
+   .run('MATCH (n:Domain)-[r]-(p) \
+         RETURN n,p,r')
+   .subscribe({
+     onNext: function(record) {
+       fullGraphData.links.push(serializeNodesAndRelationships(record));
      },
      onCompleted: function() {
        console.log("closing session");
        session.close();
+       createGraph();
      }
    });
 };
 
 let findNode = (address) => {
   session
-   .run('MATCH (n:Domain) WHERE n.address = $searchAddress', {searchAddress: address})
+   .run('MATCH (n:Domain {address: $searchAddress})-[r]-(p) \
+         RETURN n,p,r', {searchAddress: address})
    .subscribe({
      onNext: function(record) {
-       console.log(record);
+       serializeNodesAndRelationships(record);
+       // console.log(record);
      },
      onCompleted: function() {
        session.close();

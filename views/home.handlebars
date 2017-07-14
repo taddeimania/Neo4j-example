@@ -25,6 +25,14 @@
 {{/each}}
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js" charset="utf-8"></script>
 <script src="/static/js/neo4j-web.min.js" charset="utf-8"></script>
 <script src="/static/js/ui.js" charset="utf-8"></script>
+<script src="/static/js/serializer.js" charset="utf-8"></script>
 <script src="/static/js/boltAdapter.js" charset="utf-8"></script>
+<script type="text/javascript">
+  let searchCallback = (e) => {
+    let domain = document.getElementById("domainSearch");
+    findNode(domain.value);
+  };
+</script>
