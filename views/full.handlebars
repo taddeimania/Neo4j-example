@@ -1,0 +1,17 @@
+<ul class="tab tab-block">
+  <li class="tab-item">
+    <a href="/">Search</a>
+  </li>
+  <li class="tab-item active">
+    <a href="/full">Full Graph (Live)</a>
+  </li>
+</ul>
+
+
+<script src="/static/js/neo4j-web.min.js" charset="utf-8"></script>
+<script src="/static/js/boltAdapter.js" charset="utf-8"></script>
+
+<script type="text/javascript">
+  getAllNodes();
+  establishWebSocket();
+</script>

@@ -1,26 +1,30 @@
-<h1>Welcome to neo-graph</h1>
-
-<h4>A small proof of concept for streaming data from neo4j to the browser.</h4>
-
-<p><strong>Getting Started:</strong></p>
-<p>In the input box below, type an IP address, a domain name,
-  or leave it blank to see all nodes in the graph.</p>
-
-<p>
+<ul class="tab tab-block">
+  <li class="tab-item active">
+    <a href="/">Search</a>
+  </li>
+  <li class="tab-item">
+    <a href="/full">Full Graph (Live)</a>
+  </li>
+</ul>
+<div class="columns">
   <form class="" action="" method="post" id="searchForm">
-    <div class="input-group">
-      <input class="form-input" type="text" id="domainSearch" alt="Type domain or IP here to retrieve results." />
+    <div class="column col-11 input-group">
+      <input class="form-input input-group-addon" type="text" id="domainSearch" placeholder="Type or click a domain or IP address" alt="Type domain or IP here to retrieve results." />
+      <select class="form-select select">
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+      </select>
       <input type="submit" class="btn btn-primary input-group-btn" />
     </div>
   </form>
-</p>
+</div>
 <div>Some Examples:
 {{#each samples}}
-  <span class="label label-primary pill">{{this}} </span>
+  <span class="label label-primary pill">{{this}}</span>
 {{/each}}
 </div>
 
 <script src="/static/js/neo4j-web.min.js" charset="utf-8"></script>
 <script src="/static/js/ui.js" charset="utf-8"></script>
-<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.12.0.js"></script>
 <script src="/static/js/boltAdapter.js" charset="utf-8"></script>

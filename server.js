@@ -28,13 +28,16 @@ swagger.initialize(app, opts);
 app.use(routes);
 
 app.get("/", async (req, res) => {
-  const samples = await Domain.randomNodes(session, 7)
+  const samples = await Domain.randomNodes(session, 7);
   const templateSamples = samples.records.map((sample) => {
     return sample.get(0);
   })
   res.render('home', {samples: templateSamples});
 });
 
+app.get("/full", (req, res) => {
+  res.render('full', {});
+});
 
 swagger.compile()
 
