@@ -29,10 +29,19 @@
 <script src="/static/js/neo4j-web.min.js" charset="utf-8"></script>
 <script src="/static/js/ui.js" charset="utf-8"></script>
 <script src="/static/js/serializer.js" charset="utf-8"></script>
-<script src="/static/js/boltAdapter.js" charset="utf-8"></script>
+<script src="/static/js/d3app.js" charset="utf-8"></script>
 <script type="text/javascript">
+  let fullGraphData = {nodes: [], links: []};
   let searchCallback = (e) => {
+    fullGraphData = {nodes: [], links: []}
+    document.getElementById("myGraph").innerHTML = "";
+
     let domain = document.getElementById("domainSearch");
-    findNode(domain.value);
+    console.log(fullGraphData);
+    findNodeRelationships(domain.value);
+    fullGraphData.nodes.push({id: domain.value});
   };
 </script>
+<script src="/static/js/boltAdapter.js" charset="utf-8"></script>
+<svg width="960" height="600" id="myGraph"></svg>
+<script src="https://d3js.org/d3.v4.min.js"></script>

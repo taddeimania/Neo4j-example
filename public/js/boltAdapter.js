@@ -10,7 +10,6 @@ let getAllNodes = () => {
        fullGraphData.nodes.push({id: record.get(0).properties.address});
      },
      onCompleted: function() {
-       console.log("getting all relationships");
        getAllNodeRelationships();
      }
    });
@@ -25,24 +24,33 @@ let getAllNodeRelationships = () => {
        fullGraphData.links.push(serializeNodesAndRelationships(record));
      },
      onCompleted: function() {
-       console.log("closing session");
        session.close();
        createGraph();
      }
    });
 };
 
-let findNode = (address) => {
+let findNodeRelationships = (address) => {
   session
-   .run('MATCH (n:Domain {address: $searchAddress})-[r]-(p) \
-         RETURN n,p,r', {searchAddress: address})
+   .run(`MATCH (n:Domain {address: $searchAddress})-[r]-(p) \
+         RETURN n,p,r`, {searchAddress: address})
    .subscribe({
      onNext: function(record) {
-       serializeNodesAndRelationships(record);
-       // console.log(record);
+       fullGraphData.links.push(serializeNodesAndRelationships(record));
      },
      onCompleted: function() {
+       let links = fullGraphData.links;
+       let nodes = [];
+       links.forEach(link => {
+         Object.keys(link).forEach(key => {
+           nodes.push(link[key]);
+         });
+       });
+       fullGraphData.nodes = _.uniq(nodes).map(address => {
+         return {id: address}
+       })
        session.close();
+       createGraph();
      }
    })
 };
