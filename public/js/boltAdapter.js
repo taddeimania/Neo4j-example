@@ -16,6 +16,19 @@ let getAllNodes = () => {
    });
 };
 
+let findNode = (address) => {
+  session
+   .run('MATCH (n:Domain) WHERE n.address = $searchAddress', {searchAddress: address})
+   .subscribe({
+     onNext: function(record) {
+       console.log(record);
+     },
+     onCompleted: function() {
+       session.close();
+     }
+   })
+};
+
 
 let establishWebSocket = () => {
   let boltSocket = new WebSocket("ws://localhost:8080");

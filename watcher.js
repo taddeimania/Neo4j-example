@@ -31,7 +31,7 @@ const createRandomDomains = async (session) => {
   const result = await domain.save();
   if (count > 10) {
     // Create N associations per node
-    const associationCount = generateRandomDomain(1, 3);
+    const associationCount = generateRandomRange(1, 3);
     for (var i = 0; i < associationCount; i++) {
       const randomNode = await Domain.randomNode(session);
       await domain.associate(randomNode)
