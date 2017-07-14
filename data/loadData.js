@@ -1,7 +1,11 @@
 'use strict';
 
+const generateRandomRange = (min, max) => {
+  return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min)) + Math.ceil(min));
+};
+
 const generateValidIPSegment = () => {
-  return Math.floor(Math.random() * (Math.floor(255) - Math.ceil(1)) + Math.ceil(1));
+  return generateRandomRange(1, 255);
 }
 
 const generateRandomIPAddress = () => {
@@ -33,5 +37,6 @@ module.exports = {
   generateValidIPSegment: generateValidIPSegment,
   generateRandomIPAddress: generateRandomIPAddress,
   generateRandomDomain: generateRandomDomain,
+  generateRandomRange: generateRandomRange,
   generateXofN: generateXofN
 }

@@ -1,5 +1,6 @@
 
 const Domain = require('./models/domain');
+const generateRandomRange = require('./data/loadData').generateRandomRange;
 
 const WebSocket = require('ws');
 
@@ -29,11 +30,13 @@ const createRandomDomains = async (session) => {
   const domain = await Domain.create(session);
   const result = await domain.save();
   if (count > 10) {
-    // console.log("Creating an association");
-    const randomNode = await Domain.randomNode(session);
-    await domain.associate(randomNode)
+    // Create N associations per node
+    const associationCount = generateRandomDomain(1, 3);
+    for (var i = 0; i < associationCount; i++) {
+      const randomNode = await Domain.randomNode(session);
+      await domain.associate(randomNode)
+    }
   }
-  result.associations = await domain.getAssociations();
   // Stubbed out websocket communication. This gets fired whenever an object is created
   Object.keys(clientSockets).forEach(key => {
     clientSockets[key].send(JSON.stringify(result));
