@@ -23,6 +23,10 @@ app.use('/static', express.static('public'));
 const driver = neo4j.driver('bolt://neo4j', neo4j.auth.basic('neo4j', 'abcde'));
 const session = driver.session();
 
+app.use((req, res, next) => {
+  req.dbSession = session;
+  next();
+});
 
 swagger.initialize(app, opts);
 app.use(routes);

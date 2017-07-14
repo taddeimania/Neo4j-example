@@ -9,6 +9,7 @@ const router = new express.Router();
 swagger.swaggerize(router);
 
 router.get("/swagger", swaggerRoute.route).describe(swaggerRoute.describe);
-router.get("/api/one", apiRoutes.route).describe(apiRoutes.describe);
+router.post("/api/destroyEverything", apiRoutes.destroyEverything.route).describe(apiRoutes.destroyEverything.describe);
+router.post("/api/createDomains/:count", apiRoutes.createDomains.route).describe(apiRoutes.createDomains.describe);
 
 module.exports = router

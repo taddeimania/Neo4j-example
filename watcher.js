@@ -23,13 +23,13 @@ const startBackgroundTask = (session) => {
   }, 5000);
 };
 
-const createRandomDomains = async (session) => {
+const createRandomDomains = async (session, relations=false) => {
   // console.log("Creating a record");
   const countRecord = await Domain.count(session);
   const count = countRecord.records[0].get("domainCount").low;
   const domain = await Domain.create(session);
   const result = await domain.save();
-  if (count > 10) {
+  if (count > 10 || relations) {
     // Create N associations per node
     const associationCount = generateRandomRange(1, 4);
     for (var i = 0; i < associationCount; i++) {
@@ -40,8 +40,6 @@ const createRandomDomains = async (session) => {
   const associations = await domain.getAssociations();
   // Stubbed out websocket communication. This gets fired whenever an object is created
   Object.keys(clientSockets).forEach(key => {
-    // node address
-    // array of source/target relationships
     clientSockets[key].send(
       JSON.stringify(
         {
@@ -55,5 +53,7 @@ const createRandomDomains = async (session) => {
 }
 
 module.exports = {
-  startBackgroundTask: startBackgroundTask
+  startBackgroundTask: startBackgroundTask,
+  clientSockets: clientSockets,
+  createRandomDomains: createRandomDomains
 };

@@ -39,10 +39,10 @@ class Domain {
     );
   };
 
-  destroy() {
-    // Stub neo4j DELETE code here
-    // MATCH (n:Domain) WHERE n.address = this.address
-    // DELETE n;
+  static destroyEverything(session) {
+    return session.run(
+      'MATCH (n) DETACH DELETE n;'
+    );
   };
 
   associate(randomNode) {
